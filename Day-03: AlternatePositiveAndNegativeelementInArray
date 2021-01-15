@@ -24,9 +24,7 @@ int main(){
 	        arr[k++] = pos[j++];
 	        arr[k++] = neg[i++];   // this will combine the +ve and -ve elements alternatively , where first +ve element comes
 	    }
-
-	 while (j < pos.size()) { arr[k++] = pos[j++]; }
-     while (i < neg.size()) { arr[k++] = neg[i++]; }  // this will check the correct pos^n of the +ve and -ve elements
+	    
    cout<<"Output Of the given array: ";
     for(int i=0;i<n;i++) cout<<arr[i]<<" ";
     cout<<endl;

@@ -97,6 +97,3 @@ int main()
      cout<<"MinElement: "<<min<<endl;
      cout<<"MaxElement: "<<max;
    }
- 
-   
-   

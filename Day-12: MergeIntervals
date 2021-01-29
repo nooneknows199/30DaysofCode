@@ -33,3 +33,31 @@ while(!s.empty()){
 
 OR
 
+#include<bits/stdc++.h>         // T.C : O(n log n)
+using namespace std;           // S.C : O(1)
+int main(){
+    int n;
+    cin>>n;
+   vector<pair<int,int>> v;
+    for(int i=0;i<n;i++) {
+        int x,y;
+        cin>>x>>y;
+        v.push_back({x,y});
+    }
+     sort(v.begin(),v.end());
+    int index = 0;
+    for(int i=1;i<n;i++){
+         if (v[index].second >=  v[i].first)  
+        {  
+            v[index].second = max(v[index].second, v[i].second);  
+            v[index].first = min(v[index].first, v[i].first);  
+        }  
+        else { 
+            index++; 
+            v[index] = v[i];  
+        }    
+    }
+     for(int i=0;i<=index;i++)  
+     cout<<v[i].first<<" "<<v[i].second<<endl;
+    
+}

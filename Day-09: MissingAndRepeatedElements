@@ -76,3 +76,51 @@ int main(void){
     }
     cout<<endl;
 }
+
+OR 
+
+#include <bits/stdc++.h>        // T.C : O(n)
+using namespace std;            // S.C : O(1)
+
+class Solution{
+public:
+    int *findTwoElement(int *arr, int n) {
+       int a,b;
+       // for repeated no:
+       for(int i=0;i<n;i++) {
+           if(arr[abs(arr[i])-1]<0)        // if no is (-)ve then that no is the repeated no 
+               a= abs(arr[i]);             // then store that no in a variable
+        
+           else
+          arr[abs(arr[i])-1] = -arr[abs(arr[i])-1];            // if no is visited and no is not (-)ve then make it neagtive by visting that no
+       }
+       // For missing no :
+       for(int i=0;i<n;i++){              // check for that no who is not (-)ve then that no is the missing no
+           if(arr[i]>0){
+               b=i+1;
+               break;
+           }
+       }
+       int *v =new int[2];         // make a dynamic array of size 2 
+       v[0] = a;                   // first dynamic array contain the value of a
+       v[1] = b;                   // second dynamic array contain the value of b
+       return v;                   // hence return dynamic array
+    }
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int a[n];
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        Solution ob;
+        auto ans = ob.findTwoElement(a, n);
+        cout << ans[0] << " " << ans[1] << "\n";
+    }
+    return 0;
+} 

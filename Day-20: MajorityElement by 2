@@ -1,3 +1,49 @@
+// Brute force:
+#include<bits/stdc++.h>          // T.C : O(n²) 
+using namespace std;             // S.C : O(1)
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++) cin>>a[i];
+   
+    for(int i=0;i<n;i++){
+         int count = 0;
+        for(int j=i+1;j<n;j++){
+            if(a[j] == a[i])
+            count++;
+        }
+            if(count>n/2)
+           cout<< a[i];     
+    }
+}
+
+OR
+// Sorting
+#include<bits/stdc++.h>          // T.C : O(n log n) 
+using namespace std;             // S.C : O(1)
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++) cin>>a[i];
+   
+    sort(a, a+n);
+    int i = 1, count = 1;
+    while ( i < n )
+    {
+        while ( i < n and a[i] == a[i-1] )
+        {
+            i++;
+            count++;
+        }
+       if ( count > n/2 )
+            cout<< a[i-1];
+        count = 1;
+        i ++;
+    }
+  
+}
 // By using unordered_map  : 
 #include<bits/stdc++.h>         // T.C : O(n)
 using namespace std;            // S.C : O(n)

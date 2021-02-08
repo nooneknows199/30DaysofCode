@@ -1,0 +1,98 @@
+// With Division :
+#include<bits/stdc++.h>      // T.C : O(n)
+using namespace std;         // S.C : O(n)
+int main()
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    int sum = 1;
+    for(int i=0;i<n;i++){
+      
+        sum = sum * a[i];
+    }
+    
+    int ans[n];
+    for(int i=0;i<n;i++){
+      ans[i] = sum / a[i];
+    }
+     for(int i=0;i<n;i++){
+    cout<<ans[i]<<" ";
+     }
+}
+
+OR
+
+// Without Division :
+#include<bits/stdc++.h>      // T.C : O(n)
+using namespace std;         // S.C : O(n)
+
+vector<long long int> productExceptSelf(vector<long long int>&, int );
+int main()
+ {
+    int t;  
+    cin>>t;
+    while(t--)
+    {
+        int n; 
+        cin>>n;
+        vector<long long int> arr(n),vec(n);
+        
+        for(int i=0;i<n;i++)    
+        {
+            cin>>arr[i];
+        }
+        
+        vec = productExceptSelf(arr,n);  
+        
+        for(int i=0;i<n;i++)   
+        {
+            cout << vec[i] << " ";
+        }
+        cout<<endl;
+    }
+	return 0;
+}
+vector<long long int> productExceptSelf(vector<long long int>& nums, int n) {
+   vector<long long int>  l(n),r(n);
+   l[0]=1;
+   r[n-1]=1;
+   
+   for(int i=1;i<n;i++)
+       l[i] = l[i-1] * nums[i-1];
+       
+       for(int i=n-2;i>=0;i--)
+       r[i] = r[i+1] * nums[i+1];
+   
+   for(int i=0;i<n;i++)
+      nums[i] = l[i] * r[i];
+          return nums;
+}
+
+OR
+
+#include<bits/stdc++.h>      // T.C : O(n)
+using namespace std;         // S.C : O(1)
+
+#define EPS 1e-9           // epsilon value to maintain precision 
+void productPuzzle(int a[], int n) 
+{ 
+    long double sum = 0; 
+    for (int i = 0; i < n; i++)                  // to hold sum of all values 
+        sum += (long double)log10(a[i]); 
+  
+    for (int i = 0; i < n; i++)        // output product for each index antilog to find original product value 
+        cout << (int)(EPS + pow((long double)10.00,  sum - log10(a[i])))  << " "; 
+} 
+  
+int main() 
+{ 
+    int a[] = { 10, 3, 5, 6, 2 }; 
+    int n = sizeof(a) / sizeof(a[0]); 
+    cout << "The product array is: \n"; 
+    productPuzzle(a, n); 
+    return 0; 
+}

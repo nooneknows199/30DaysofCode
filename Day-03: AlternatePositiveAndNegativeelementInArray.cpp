@@ -33,62 +33,43 @@ int main(){
 
 OR
 
+ //  Time : O(n)
+ // Space : O(1)  , without using extra space
+
 #include <bits/stdc++.h>
 using namespace std;
- 
-// Partitioning routine of quicksort
-int partition(int A[], int n)
-{
-    int j = 0;
-    int pivot = 0;    // consider 0 as pivot
- 
-    // each time we find a negative number, j is incremented
-    // and negative element would be placed before the pivot
-    for (int i = 0; i < n; i++)
-    {
-        if (A[i] < pivot)
-        {
-            swap(A[i], A[j]);
-            j++;
-        }
-    }
- 
-    // j holds index of first positive element
-    return j;
+
+void alt(int a[],int n){
+    
+    int pivot =0,i=0;
+   for( i=0;i<n;i++){
+    if(a[i]<0){
+        swap(a[pivot] ,a[i]);
+    pivot++;
+   }
 }
- 
-// Function to rearrange given array such that it contains positive
-// and negative numbers at alternate positions
-int rearrange(int A[], int size)
-{
-    // partition given array such that all positive elements move
-    // to end of the array
-    int p = partition(A, size);
- 
-    // swap alternate negative element from next available positive
-    // element till end of array is reached or all negative or
-    // positive elements are exhausted.
-    for (int n = 0; (p < size && n < p); p++, n += 2) {
-        swap(A[n], A[p]);
+    for (int i = 1; i < n; i=i+2){
+        swap(a[i],a[pivot]);
+        pivot++;
+    }
+
+
+    // print array
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
     }
 }
- 
+
 int main()
-{
-    cout<<"enter the elements of the array: ";      //  Time : O(n)
-    int n;                                          // Space : O(1)  , without using extra space
-    cin>>n;
-    int A[n];
-    cout<<"enter array elements: ";
-    for(int i=0;i<n;i++) cin>>A[i];
+{ 
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    #endif
+
+	
+    int a[] = {1,2,3,-4,-1,4};
+    int n = sizeof(a)/sizeof(a[0]);
  
-    rearrange(A, n);
- 
-    // print the rearranged array
-     cout << "Outut array is: ";
-    for (int i = 0 ; i < n; i++) {
-        cout << A[i]<<" ";
-    }
- 
-    return 0;
+    alt(a,n);
 }

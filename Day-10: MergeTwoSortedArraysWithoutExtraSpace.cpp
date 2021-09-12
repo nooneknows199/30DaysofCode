@@ -1,40 +1,5 @@
-#include <iostream>            // T.C : O(mn)
-#include <algorithm>          // S.C : O(1)
-using namespace std;
-int main(){
-    int n,m,k;
-    cin>>m>>n;
-    int arr1[m],arr2[n];
-    for(int i=0;i<m;i++)  cin>>arr1[i];
-     for(int i=0;i<n;i++)  cin>>arr2[i];
- 
-     for (int i = 0; i < m;  i++){
-        if (arr1[i] > arr2[0])
-        {
-            swap(arr1[i], arr2[0]);
-            int first = arr2[0];
- 
-            for (k = 1; k < n && arr2[k] < first; k++) {
-                arr2[k - 1] = arr2[k];
-            }
-           arr2[k - 1] = first;
-        }
-    }
-    cout << "X: "; 
-    for (int i = 0; i < m; i++) {
-        cout << arr1[i] << " ";
-    }
-    cout << '\n';
-    cout << "Y: ";
-    for (int i = 0; i < n; i++) {
-        cout << arr2[i] << " ";
-    }
-    cout << '\n';
-}
-
-OR
 // Gap Method
-#include <iostream>            // T.C : O(n) * O(log n
+#include <iostream>            // T.C : O(mn)
 #include <algorithm>          // S.C : O(1)
 using namespace std;
 int nextGap(int gap)

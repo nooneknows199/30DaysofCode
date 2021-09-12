@@ -1,5 +1,5 @@
 // Gap Method
-#include <iostream>            // T.C : O(mn)
+#include <iostream>            // T.C : O((n+m)log n)
 #include <algorithm>          // S.C : O(1)
 using namespace std;
 int nextGap(int gap)

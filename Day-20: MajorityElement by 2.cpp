@@ -44,6 +44,8 @@ int main(){
     }
   
 }
+
+
 // By using unordered_map  : 
 #include<bits/stdc++.h>         // T.C : O(n)
 using namespace std;            // S.C : O(n)
@@ -75,84 +77,54 @@ int main(){
     return -1;
 }
 
-OR
+
+// Moore Voting Algortihtm
 #include<bits/stdc++.h>         // T.C : O(n)
 using namespace std;            // S.C : O(1)
 
-int majorityElement(int a[], int size)
-{
-    
-    int ma = a[0];
-    int count = 1;
-    for(int i=0;i<size;i++){
-        if(a[i] == ma) count++;
-        else
-        count--;
-        if(count ==0){
-            ma = a[i];
-            count = 1;
-        }
-    }
-    int c = 0;
-    for(int i=0;i<size;i++){
-        if(a[i] == ma) c++;
-    }
-    if(c > size/2) return ma;
-    else return -1;
-    
+int findCandidate(int a[],int n){
+   int maj_index = 0, ct = 1;
+
+   for(int i=1;i<n;i++){
+      if(ct == 0){
+         maj_index = i;
+         ct = 1;
+      }
+
+      if(a[maj_index] == a[i])
+         ct++;
+      else
+         ct--;
+   }
+   return a[maj_index];
+}
+
+bool isMajority(int a[],int n,int cand){
+   int ct = 0;
+
+   for(int i=0;i<n;i++)
+      if(a[i] == cand)
+         ct++;
+
+      if(ct > n/2)
+         return 1;
+      else 
+         return 0;
+}
+
+void printMajority(int a[],int n){
+   int cand = findCandidate(a,n);
+
+   if(isMajority(a,n,cand))
+      cout<<" "<<cand<<" ";
+   else
+      cout<<"No Majority element";
 }
 
 int main(){
+ 
+  int a[] = {1,3,3,1,3};
+  int n = (sizeof(a))/sizeof(a[0]);
 
-    int t;
-    cin >> t;
-
-    while(t--){
-        int n;
-        cin >> n;
-        int arr[n];
-        
-        for(int i = 0;i<n;i++){
-            cin >> arr[i];
-        }
-        
-        cout << majorityElement(arr, n) << endl;
-    }
-
-    return 0;
-}
-
-OR
-// Moore Voting Algortihtm
-#include<bits/stdc++.h>         // T.C : O(n)
-using namespace std;            // S.C : O(n)
-
-int main(){
-
-    int t;
-    cin >> t;
-
-    while(t--){
-        int n;
-        cin >> n;
-        int arr[n];
-        
-        for(int i = 0;i<n;i++){
-            cin >> arr[i];
-        }
-        int count = 0;
-        int element = 0;
-        for(int i = 0;i<n;i++){
-            if(count == 0)
-            element = arr[i];
-            if(element == arr[i]) 
-            count++;
-            else
-            count--;
-    }
-    cout<<element;
-        
-    }
-    
-    
+  printMajority(a,n);
 }

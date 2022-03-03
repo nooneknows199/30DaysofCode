@@ -1,27 +1,26 @@
 class Solution{             // T.C : O(n)
-    public:                 // S.C : O(1)
-    void nextPermutation(vector<int> &arr){
-int idx = -1;
-        int N = arr.size();
-        for(int i =N-1;i>0;i--){
-            if(arr[i]> arr[i-1]){
-                idx= i;
-                break;
+public:                     // S.C : O(1)
+    void nextPermutation(vector<int>& nums) {
+        int n=nums.size(),i,l;
+
+        for( i=n-2;i>=0;i--)
+        {
+            if(nums[i]<nums[i+1])
+                break;        
+        }
+        if(i<0)
+            reverse(nums.begin(),nums.end());
+        else
+        {
+            for(l=n-1;l>i;l--)
+            {
+                if(nums[l]>nums[i])
+                    break;    
             }
+        swap(nums[i],nums[l]);   
+        reverse(nums.begin() + i + 1, nums.end());
         }
-        if(idx == -1){
-            reverse(arr.begin(), arr.end());
-        }
-        else {
-            int prev = idx;
-            for(int i=idx+1;i<N;i++){
-                if(arr[i]>arr[idx-1] and arr[i]<= arr[prev]){
-                    prev = i;
-                }
-            }
-            swap(arr[idx-1],arr[prev]);
-            reverse(arr.begin()+idx, arr.end());
-        }
+        
     }
 };
 

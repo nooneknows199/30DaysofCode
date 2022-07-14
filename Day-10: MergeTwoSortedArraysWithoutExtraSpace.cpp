@@ -2,48 +2,50 @@
 #include <iostream>            // T.C : O((n+m)log n)
 #include <algorithm>          // S.C : O(1)
 using namespace std;
-int nextGap(int gap)
-{
-    if (gap <= 1)
-        return 0;
-    return (gap / 2) + (gap % 2);
+void merge(int ar1[], int ar2[], int n, int m) {
+  // code here 
+  int gap = ceil((float)(n + m) / 2);
+  while (gap > 0) {
+    int i = 0;
+    int j = gap;
+    while (j < (n + m)) {
+      if (j < n && ar1[i] > ar1[j]) {
+        swap(ar1[i], ar1[j]);
+      } else if (j >= n && i < n && ar1[i] > ar2[j - n]) {
+        swap(ar1[i], ar2[j - n]);
+      } else if (j >= n && i >= n && ar2[i - n] > ar2[j - n]) {
+        swap(ar2[i - n], ar2[j - n]);
+      }
+      j++;
+      i++;
+    }
+    if (gap == 1) {
+      gap = 0;
+    } else {
+      gap = ceil((float) gap / 2);
+    }
+  }
 }
-int main(){
-    int n,m,k;
-    cin>>m>>n;
-    int arr1[m],arr2[n];
-    for(int i=0;i<m;i++)  cin>>arr1[i];
-     for(int i=0;i<n;i++)  cin>>arr2[i];
- 
-     int i, j, gap = n + m;
-    for (gap = nextGap(gap); 
-         gap > 0; gap = nextGap(gap)) 
-    {
-        for (i = 0; i + gap < m; i++)
-            if (arr1[i] > arr1[i + gap])
-                swap(arr1[i], arr1[i + gap]);
- 
-        for (j = gap > m ? gap - m : 0; 
-             i < m && j < n;
-             i++, j++)
-            if (arr1[i] > arr2[j])
-                swap(arr1[i], arr2[j]);
- 
-        if (j < n) {
-           
-            for (j = 0; j + gap < n; j++)
-                if (arr2[j] > arr2[j + gap])
-                    swap(arr2[j], arr2[j + gap]);
-        }
-    }
-    cout << "X: "; 
-    for (int i = 0; i < m; i++) {
-        cout << arr1[i] << " ";
-    }
-    cout << '\n';
-    cout << "Y: ";
-    for (int i = 0; i < n; i++) {
-        cout << arr2[i] << " ";
-    }
-    cout << '\n';
+int main() {
+  int arr1[] = {1,4,7,8,10};
+  int arr2[] = {2,3,9};
+  cout << "Before merge:" << endl;
+  for (int i = 0; i < 5; i++) {
+    cout << arr1[i] << " ";
+  }
+  cout << endl;
+  for (int i = 0; i < 3; i++) {
+    cout << arr2[i] << " ";
+  }
+  cout << endl;
+  merge(arr1, arr2, 5, 3);
+  cout << "After merge:" << endl;
+  for (int i = 0; i < 5; i++) {
+    cout << arr1[i] << " ";
+  }
+  cout << endl;
+  for (int i = 0; i < 3; i++) {
+    cout << arr2[i] << " ";
+  }
+
 }

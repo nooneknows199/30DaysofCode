@@ -1,33 +1,49 @@
 #include <bits/stdc++.h>            // T.C : O(log n)          
 using namespace std;                 // S.C : O(1)
+  
+int median(int arr[], int n)
+{
+    if (n%2 == 0)
+        return (arr[n/2] + arr[n/2-1])/2;
+    else
+        return arr[n/2];
+}
 
-int median(int arr[], int s, int e) {
-        return (arr[(s + e) / 2] + arr[(s + e + 1) / 2]) / 2;
+int getMedian(int ar1[], int ar2[], int n){
+    if (n <= 0)
+        return -1;
+    if (n == 1)
+        return (ar1[0] + ar2[0])/2;
+    if (n == 2)
+        return (max(ar1[0], ar2[0]) + min(ar1[1], ar2[1])) / 2;
+  
+    int m1 = median(ar1, n); 
+    int m2 = median(ar2, n); 
+  
+    if (m1 == m2)
+        return m1;
+  
+    if (m1 < m2)
+    {
+        if (n % 2 == 0)
+            return getMedian(ar1 + n/2 - 1, ar2, n - n/2 +1);
+        return getMedian(ar1 + n/2, ar2, n - n/2);
     }
+  
+    if (n % 2 == 0)
+        return getMedian(ar2 + n/2 - 1, ar1, n - n/2 + 1);
+    return getMedian(ar2 + n/2, ar1, n - n/2);
+}
 
-int findMedian(int a[], int b[], int Sa, int Sb, int Ea, int Eb) {
-        if (Ea - Sa <= 1)
-            return (max(a[Sa], b[Sb]) + min(a[Ea], b[Eb])) / 2;
-        int m1 = median(a, Sa, Ea);
-        int m2 = median(b, Sb, Eb);
-        if (m1 == m2)
-            return m1;
-        if (m1 > m2)
-            return findMedian(a, b, Sa, (Sb + Eb + 1) / 2, (Sa + Ea + 1) / 2, Eb);
-        return findMedian(a, b, (Sa + Ea + 1) / 2, Sb, Ea, (Sb + Eb + 1) / 2);
-    }
-int main(){
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-
-    int n,m,k;
-    cin>>m>>n;
-    int arr1[m],arr2[n];
-    for(int i=0;i<m;i++)  cin>>arr1[i];
-    for(int i=0;i<n;i++)  cin>>arr2[i];
-    
-    cout<<findMedian(arr1,arr2,0,0,m-1,n-1);
-    
+int main()
+{
+    int ar1[] = {1, 2, 3, 6};
+    int ar2[] = {4, 6, 8, 10};
+    int n1 = sizeof(ar1)/sizeof(ar1[0]);
+    int n2 = sizeof(ar2)/sizeof(ar2[0]);
+    if (n1 == n2)
+        printf("Median is %d", getMedian(ar1, ar2, n1));
+    else
+        printf("Doesn't work for arrays of unequal size");
+    return 0;
 }

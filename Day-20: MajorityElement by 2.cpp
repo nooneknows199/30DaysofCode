@@ -82,49 +82,37 @@ int main(){
 #include<bits/stdc++.h>         // T.C : O(n)
 using namespace std;            // S.C : O(1)
 
-int findCandidate(int a[],int n){
-   int maj_index = 0, ct = 1;
-
-   for(int i=1;i<n;i++){
-      if(ct == 0){
-         maj_index = i;
-         ct = 1;
-      }
-
-      if(a[maj_index] == a[i])
-         ct++;
-      else
-         ct--;
-   }
-   return a[maj_index];
+int findMajorityElement(int nums[], int n)
+{
+    int m;
+    int count = 0;
+ 
+    for (int j = 0; j < n; j++)
+    {
+        if (count == 0) {
+            m = nums[j], count = 1;
+        }
+        else {
+            (m == nums[j]) ? count++ : count--;
+        }
+    }
+    
+    int mx = 0;
+    for(int i =0;i<n;i++){
+        if(m == nums[i])
+        mx++;
+    }
+    int size = n/2;
+    if(mx > size)
+        return m;
+    else
+        return -1;
 }
-
-bool isMajority(int a[],int n,int cand){
-   int ct = 0;
-
-   for(int i=0;i<n;i++)
-      if(a[i] == cand)
-         ct++;
-
-      if(ct > n/2)
-         return 1;
-      else 
-         return 0;
-}
-
-void printMajority(int a[],int n){
-   int cand = findCandidate(a,n);
-
-   if(isMajority(a,n,cand))
-      cout<<" "<<cand<<" ";
-   else
-      cout<<"No Majority element";
-}
+ 
 
 int main(){
- 
-  int a[] = {1,3,3,1,3};
-  int n = (sizeof(a))/sizeof(a[0]);
-
-  printMajority(a,n);
+   
+    int a[11] = { 1, 8, 7, 4, 1, 2, 2, 2, 2, 2, 2 };
+    
+    cout<<findMajorityElement(a,11);
 }
